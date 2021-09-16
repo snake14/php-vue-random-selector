@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+		<title>Random Selector</title>
+
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+		<!-- Load polyfills to support older browsers -->
+		<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+		<!-- Load Vue followed by BootstrapVue -->
+		<script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+		<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+		<!-- Load the following for BootstrapVueIcons support -->
+		<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+		<script src="/js/main.js"></script>
+		<script src="/js/selectFromList.js"></script>
+		<script src="/js/addEditItemModal.js"></script>
+		<script src="/js/selectFromNumberRange.js"></script>
+		<script src="/js/flipACoin.js"></script>
+
+		<style>
+			.form .form-control {
+				max-width: 250px;
+			}
+		</style>
+	</head>
+	<body >
+		<div id="selector_app">
+			<b-container>
+				<h1 class="m-3">Random Selector</h1>
+				<b-card no-body>
+					<div>
+						<b-card no-body>
+							<b-tabs pills card>
+								<b-tab title="Select From List" active><b-card-text>
+									<list-item-select :display-result="displayResult" />
+								</b-card-text></b-tab>
+								<b-tab title="Select From Range of Numbers"><b-card-text>
+									<number-range-select :display-result="displayResult" />
+								</b-card-text></b-tab>
+								<b-tab title="Flip a Coin"><b-card-text>
+									<coin-flip />
+								</b-card-text></b-tab>
+							</b-tabs>
+						</b-card>
+					</div>
+				</b-card>
+			</b-container>
+		</div>
+
+		<!-- Start running your app -->
+		<script>
+			window.app = new Vue({
+				el: '#selector_app',
+				methods: {
+					displayResult: function (message, isError) {
+						var attributes = {
+							domProps: { innerHTML: message }
+						};
+
+						if(isError !== undefined && isError === true) {
+							attributes.class = [ 'text-danger' ];
+						}
+
+						var messageVNode = this.$createElement('h4', attributes);
+						this.$bvModal.msgBoxOk([ messageVNode ]);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
