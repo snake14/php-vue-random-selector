@@ -33,6 +33,15 @@
 			.form .form-control {
 				max-width: 250px;
 			}
+
+			table .hidden_header {
+				display: none;
+			}
+
+			.square-bottom {
+				border-bottom-right-radius: 0;
+    			border-bottom-left-radius: 0;
+			}
 		</style>
 	</head>
 	<body >
@@ -42,27 +51,32 @@
 				<b-card no-body>
 					<div>
 						<b-card no-body>
-							<b-tabs pills card>
-								<b-tab title="Select From List" active><b-card-text>
-									<list-item-select :display-result="displayResult" />
-								</b-card-text></b-tab>
-								<b-tab title="Select From Range of Numbers"><b-card-text>
-									<number-range-select :display-result="displayResult" />
-								</b-card-text></b-tab>
-								<b-tab title="Flip a Coin"><b-card-text>
-									<coin-flip />
-								</b-card-text></b-tab>
-							</b-tabs>
+							<b-overlay :show="isLoading" rounded="lg">
+								<b-tabs pills card style="min-height: 380px;">
+									<b-tab title="Select From List" active><b-card-text>
+										<list-item-select :display-result="displayResult" :show-loading="showOverlay" :hide-loading="hideOverlay" />
+									</b-card-text></b-tab>
+									<b-tab title="Select From Range of Numbers"><b-card-text>
+										<number-range-select :display-result="displayResult" />
+									</b-card-text></b-tab>
+									<b-tab title="Flip a Coin"><b-card-text>
+										<coin-flip />
+									</b-card-text></b-tab>
+								</b-tabs>
+							</b-overlay>
 						</b-card>
 					</div>
 				</b-card>
 			</b-container>
 		</div>
 
-		<!-- Start running your app -->
+		<!-- Start running the app -->
 		<script>
 			window.app = new Vue({
 				el: '#selector_app',
+				data: {
+					isLoading: false
+				},
 				methods: {
 					displayResult: function (message, isError) {
 						var attributes = {
@@ -74,7 +88,13 @@
 						}
 
 						var messageVNode = this.$createElement('h4', attributes);
-						this.$bvModal.msgBoxOk([ messageVNode ]);
+						this.$bvModal.msgBoxOk([ messageVNode ], { centered: true });
+					},
+					showOverlay: function () {
+						this.isLoading = true;
+					},
+					hideOverlay: function () {
+						this.isLoading = false;
 					}
 				}
 			});
