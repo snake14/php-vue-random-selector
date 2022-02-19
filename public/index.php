@@ -16,6 +16,7 @@
 	$f3->route('GET /lists/@id', 'Controllers\Selector->getListItems');
 	$f3->route('POST /lists/', 'Controllers\Selector->saveNewList');
 	$f3->route('POST /lists/@id/items', 'Controllers\Selector->updateListItems');
+	$f3->route('POST /lists/@id/name', 'Controllers\Selector->updateListName');
 	$f3->route('DELETE /lists/@id', 'Controllers\Selector->deleteList');
 	$f3->run();
 ?>

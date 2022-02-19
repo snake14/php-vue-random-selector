@@ -11,6 +11,7 @@ Vue.component('list-item-select', {
 			cellNames: [ 'name', 'action_buttons' ],
 			listItems: [],
 			listId: null,
+			listName: null,
 			canAddList: false,
 			isListDirty: false,
 			confirmDeleteId: 'delete_list_confirm_modal',
@@ -26,9 +27,22 @@ Vue.component('list-item-select', {
 			this.listId = null;
 			this.canAddList = false;
 			this.isListDirty = false;
+			this.setListName(null);
 		},
 		setListId: function (listId) {
 			this.listId = listId;
+		},
+		setListName: function (listName) {
+			this.listName = listName;
+		},
+		findListName: function(listId) {
+			for (i = 0; i < this.listData.length; i++) {
+				if(listId === this.listData[i].value) {
+					return this.listData[i].text;
+				}
+            }
+
+			return null;
 		},
 		setCanAddList: function (canAdd) {
 			this.canAddList = canAdd;
@@ -67,6 +81,8 @@ Vue.component('list-item-select', {
 		loadListItems: function (listId) {
 			this.clearItems();
 			this.listId = listId;
+			this.setListName(this.findListName(listId));
+
 			const stopLoading = this.hideLoading;
 			const setListItems = this.setListItems;
 			const showInfoBox = this.displayResult;
@@ -127,7 +143,11 @@ Vue.component('list-item-select', {
 	template: `
 		<div>
 			<b-card bg-variant="primary" text-variant="white" class="square-bottom">
-				<span style="font-size: 1.5rem;">Selection List</span>
+				<span style="font-size: 1.5rem;" v-if="listName">{{ listName }}</span>
+				<span style="font-size: 1.5rem;" v-else>Selection List</span>
+				<b-button v-b-modal.add_edit_list_modal v-show="listName" variant="link" v-b-tooltip.hover title="Edit list name" class="ml-2">
+					<b-icon icon="pencil" variant="light" font-scale="1.3"></b-icon>
+				</b-button>
 				<b-button v-b-modal.select_list_modal variant="link" v-b-tooltip.hover title="Load an existing list" class="ml-2">
 					<b-icon icon="folder2-open" variant="light" font-scale="1.5"></b-icon>
 				</b-button>
@@ -156,7 +176,7 @@ Vue.component('list-item-select', {
 			<b-button variant="primary" class="mt-3" @click="selectRandomItem" :disabled="listItems.length < 2">Submit</b-button>
 			<b-button variant="secondary" class="mt-3" @click="clearItems">Clear</b-button>
 			<add-edit-item :items="listItems" :list-id="listId" :set-can-add-list="setCanAddList" :set-is-list-dirty="setIsListDirty" />
-			<add-edit-list :items="listItems" :list-id="listId" :set-list-id="setListId" :set-can-add-list="setCanAddList" :set-is-list-dirty="setIsListDirty" :update-list-data="updateListData" />
+			<add-edit-list :items="listItems" :list-id="listId" :list-name="listName" :set-list-id="setListId" :set-can-add-list="setCanAddList" :set-is-list-dirty="setIsListDirty" :update-list-data="updateListData" :set-list-name="setListName" />
 			<select-specific-list :list-data="listData" :load-list-items="loadListItems" />
 			<confirm-modal :id="confirmDeleteId" :message="confirmDeleteMessage" :on-yes-function="deleteList" />
 			<confirm-modal :id="confirmUpdateId" :message="confirmUpdateMessage" :on-yes-function="updateList" />

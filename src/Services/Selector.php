@@ -106,6 +106,31 @@ class Selector {
 	}
 
 	/**
+	 * Update the name associated with a specific list.
+	 * 
+	 * @param array $params Should contain the list ID and the name assocaited with the list.
+	 * @return array Indicates success.
+	 * @author JacobR
+	 */
+	public function updateListName(array $params): array {
+		if(empty($params['listId'])) {
+			return [ 'success' => false, 'error' => 'Missing required values.' ];
+		}
+
+		if(empty($params['listName'])) {
+			return [ 'success' => false, 'error' => 'Missing required values.' ];
+		}
+
+		// Save the list changes to the database...
+		$db = $this->container->get('db');
+		$result = $db->renameList($params);
+
+		$listDataResult = $this->getListsForSelect();
+
+		return [ 'success' => $result['success'] ?? false, 'listData' => $listDataResult['lists'] ?? [] ];
+	}
+
+	/**
 	 * Delete a specific list and return the updated collection of lists and IDs.
 	 * 
 	 * @param integer $listId The ID that uniquely identifies a list.

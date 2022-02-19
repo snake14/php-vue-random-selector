@@ -96,7 +96,7 @@
 			if(!$stmt) {
 				return [ 'success' => false, 'error' => $this->conn->error ];
 			}
-			$stmt->bind_param("si", $params['name'], $params['id']);
+			$stmt->bind_param("si", $params['listName'], $params['listId']);
 			$result = $stmt->execute();
 			$stmt->close();
 			return [ 'success' => $result, 'error' => $this->conn->error ];

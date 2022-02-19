@@ -86,6 +86,31 @@ class Selector {
 	}
 
 	/**
+	 * Take a list and update its name.
+	 * 
+	 * @param \Base $f3
+	 * @param array $params
+	 * @return void
+	 * @author JacobR
+	 */
+	public function updateListName($f3, $params) {
+		$listId = $params['id'] ?? 0;
+
+		if(empty($listId)) {
+			echo json_encode([ 'success' => false, 'error' => 'No list ID provided.' ]);
+			exit;
+		}
+
+		if(empty($_REQUEST['listName'])) {
+			echo json_encode([ 'success' => false, 'error' => 'No list name provided.' ]);
+			exit;
+		}
+
+		$result = (new \Services\Selector($f3))->updateListName([ 'listId' => $listId, 'listName' => $_REQUEST['listName'] ]);
+		echo json_encode($result);
+	}
+
+	/**
 	 * Take a list ID and delete the associated list.
 	 * 
 	 * @param \Base $f3
