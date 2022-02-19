@@ -7,6 +7,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
 		<title>Random Selector</title>
+		<link rel="shortcut icon" type="image/png" href="/images/favicon-32x32.png"/>
 
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
@@ -17,7 +18,7 @@
 		<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 		<!-- Load Vue followed by BootstrapVue -->
-		<script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue@2"></script>
 		<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 		<!-- Load the following for BootstrapVueIcons support -->
@@ -26,8 +27,11 @@
 		<script src="/js/main.js"></script>
 		<script src="/js/selectFromList.js"></script>
 		<script src="/js/addEditItemModal.js"></script>
+		<script src="/js/addEditListModal.js"></script>
+		<script src="/js/selectListModal.js"></script>
 		<script src="/js/selectFromNumberRange.js"></script>
 		<script src="/js/flipACoin.js"></script>
+		<script src="/js/confirmModal.js"></script>
 
 		<style>
 			.form .form-control {
@@ -54,7 +58,7 @@
 							<b-overlay :show="isLoading" rounded="lg">
 								<b-tabs pills card style="min-height: 380px;">
 									<b-tab title="Select From List" active><b-card-text>
-										<list-item-select :display-result="displayResult" :show-loading="showOverlay" :hide-loading="hideOverlay" />
+										<list-item-select :display-result="displayResult" :show-loading="showOverlay" :hide-loading="hideOverlay" :list-data="listData" :update-list-data="updateListData" />
 									</b-card-text></b-tab>
 									<b-tab title="Select From Range of Numbers"><b-card-text>
 										<number-range-select :display-result="displayResult" />
@@ -75,9 +79,13 @@
 			window.app = new Vue({
 				el: '#selector_app',
 				data: {
-					isLoading: false
+					isLoading: false,
+					listData: $.parseJSON('{{ @listData | raw }}')
 				},
 				methods: {
+					updateListData: function (listData) {
+						this.listData = listData;
+					},
 					displayResult: function (message, isError) {
 						var attributes = {
 							domProps: { innerHTML: message }
