@@ -88,7 +88,7 @@ Vue.component('list-item-select', {
 			const showInfoBox = this.displayResult;
 			this.showLoading();
 
-			var url = '/lists/' + this.listId;
+			var url = 'lists/' + this.listId;
 			$.get(url, function(result) {
 				if('success' in result && result.success && 'listItems' in result && typeof result.listItems === 'object') {
 					setListItems(result.listItems);
@@ -103,7 +103,7 @@ Vue.component('list-item-select', {
 			const setCanAddList = this.setCanAddList;
 			const showInfoBox = this.displayResult;
 
-			$.post( '/lists/' + this.listId + '/items', { listItems: this.listItems }, function(response) {
+			$.post( 'lists/' + this.listId + '/items', { listItems: this.listItems }, function(response) {
 				var responseJson = $.parseJSON(response);
 				if(responseJson && 'success' in responseJson && responseJson.success) {
 					showInfoBox('The list was successfully updated.');
@@ -121,7 +121,7 @@ Vue.component('list-item-select', {
 			const updateListData = this.updateListData;
 
 			$.ajax({
-				url: '/lists/' + this.listId,
+				url: 'lists/' + this.listId,
 				type: 'DELETE',
 				contentType: 'application/json',
 				success: function(response) {

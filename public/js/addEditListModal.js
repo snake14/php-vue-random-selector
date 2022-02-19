@@ -47,7 +47,7 @@ Vue.component('add-edit-list', {
 			const updateListData = this.updateListData;
 			const setListName = this.setListName;
 
-			$.post('/lists/', { name: value, listItems: listItems }, function(response) {
+			$.post('lists/', { name: value, listItems: listItems }, function(response) {
 				var responseJson = $.parseJSON(response);
 
 				setListId(responseJson.listId);
@@ -72,7 +72,7 @@ Vue.component('add-edit-list', {
 			const clearTitle = this.clearTitle;
 			const updateListData = this.updateListData;
 
-			$.post('/lists/' + this.listId + '/name', { listId: this.listId, listName: listName }, function(response) {
+			$.post('lists/' + this.listId + '/name', { listId: this.listId, listName: listName }, function(response) {
 				var responseJson = $.parseJSON(response);
 
 				setListName(listName);
