@@ -143,26 +143,34 @@ Vue.component('list-item-select', {
 	template: `
 		<div>
 			<b-card bg-variant="primary" text-variant="white" class="square-bottom">
-				<span style="font-size: 1.5rem;" v-if="listName">{{ listName }}</span>
-				<span style="font-size: 1.5rem;" v-else>Selection List</span>
-				<b-button v-b-modal.add_edit_list_modal v-show="listName" variant="link" v-b-tooltip.hover title="Edit list name" class="ml-2">
-					<b-icon icon="pencil" variant="light" font-scale="1.3"></b-icon>
-				</b-button>
-				<b-button v-b-modal.select_list_modal variant="link" v-b-tooltip.hover title="Load an existing list" class="ml-2">
-					<b-icon icon="folder2-open" variant="light" font-scale="1.5"></b-icon>
-				</b-button>
-				<b-button v-b-modal.add_edit_list_modal v-show="canAddList" variant="link" v-b-tooltip.hover title="Create a new list">
-					<b-icon icon="folder-plus" variant="light" font-scale="1.5"></b-icon>
-				</b-button>
-				<b-button v-b-modal.update_list_confirm_modal v-show="listId" variant="link" v-b-tooltip.hover title="Save changes to the list" :disabled="isListDirty !== true">
-					<b-icon icon="folder-check" variant="light" font-scale="1.5"></b-icon>
-				</b-button>
-				<b-button v-b-modal.delete_list_confirm_modal v-show="listId" variant="link" v-b-tooltip.hover title="Delete the list">
-					<b-icon icon="folder-x" variant="light" font-scale="1.5"></b-icon>
-				</b-button>
-				<b-button v-b-modal.add_edit_modal variant="link" v-b-tooltip.hover title="Add item to the list" class="float-right mr-n2">
-					<b-icon icon="plus-circle" variant="light" font-scale="1.5"></b-icon>
-				</b-button>
+				<div class="row">
+					<div class="col">
+						<span style="font-size: 1.5rem;" v-if="listName">{{ listName }}</span>
+						<span style="font-size: 1.5rem;" v-else>Selection List</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<b-button v-b-modal.add_edit_list_modal v-show="listName" variant="link" v-b-tooltip.hover title="Edit list name" class="mx-n2 mb-n2">
+							<b-icon icon="pencil" variant="light" font-scale="1.3"></b-icon>
+						</b-button>
+						<b-button v-b-modal.select_list_modal variant="link" v-b-tooltip.hover title="Load an existing list" class="mx-n2 mb-n2">
+							<b-icon icon="folder2-open" variant="light" font-scale="1.5"></b-icon>
+						</b-button>
+						<b-button v-b-modal.add_edit_list_modal v-show="canAddList" variant="link" v-b-tooltip.hover title="Create a new list" class="mx-n2 mb-n2">
+							<b-icon icon="folder-plus" variant="light" font-scale="1.5"></b-icon>
+						</b-button>
+						<b-button v-b-modal.update_list_confirm_modal v-show="listId" variant="link" v-b-tooltip.hover title="Save changes to the list" :disabled="isListDirty !== true" class="mx-n2 mb-n2">
+							<b-icon icon="folder-check" variant="light" font-scale="1.5"></b-icon>
+						</b-button>
+						<b-button v-b-modal.delete_list_confirm_modal v-show="listId" variant="link" v-b-tooltip.hover title="Delete the list" class="mx-n2 mb-n2">
+							<b-icon icon="folder-x" variant="light" font-scale="1.5"></b-icon>
+						</b-button>
+						<b-button v-b-modal.add_edit_modal variant="link" v-b-tooltip.hover title="Add item to the list" class="float-right mr-n2 mb-n2">
+							<b-icon icon="plus-circle" variant="light" font-scale="1.5"></b-icon>
+						</b-button>
+					</div>
+				</div>
 			</b-card>
 			<b-table striped hover :items="listItems" :fields="cellNames" outlined thead-class="hidden_header">
 			<template #cell(action_buttons)="row">
