@@ -160,7 +160,7 @@ Vue.component('list-item-select', {
 				<b-button v-b-modal.delete_list_confirm_modal v-show="listId" variant="link" v-b-tooltip.hover title="Delete the list">
 					<b-icon icon="folder-x" variant="light" font-scale="1.5"></b-icon>
 				</b-button>
-				<b-button v-b-modal.add_edit_modal variant="link" v-b-tooltip.hover title="Add item to the list" class="float-right">
+				<b-button v-b-modal.add_edit_modal variant="link" v-b-tooltip.hover title="Add item to the list" class="float-right mr-n2">
 					<b-icon icon="plus-circle" variant="light" font-scale="1.5"></b-icon>
 				</b-button>
 			</b-card>

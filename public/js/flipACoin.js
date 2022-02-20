@@ -4,8 +4,8 @@ Vue.component('coin-flip', {
 			imageLink: 'images/coin_flip.png',
 			defaultImageLink: 'images/coin_flip.png',
 			coinImageUrls: [
-				'http://lincolnpennies.net/wp-content/uploads/2009/08/lincoln_penny_obverse1.jpg',
-				'http://lincolnpennies.net/wp-content/uploads/2009/08/lincoln-memorial-penny.jpg'
+				'images/Penny_Front.gif',
+				'images/Penny_Back.gif'
 			]
 		}
 	},
